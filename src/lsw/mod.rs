@@ -2,9 +2,6 @@
 //! ---
 //! This is a wrapper
 //! Implented in [the lsw source](rabe::schemes::lsw)
-//!
-//!
-//! [`]
 
 
 use rabe::schemes::lsw::{

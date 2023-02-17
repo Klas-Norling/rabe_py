@@ -73,4 +73,5 @@ docs/_build/
 .python-version
 *.env
 
+# Cargo files
 Cargo.lock
