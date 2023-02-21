@@ -40,18 +40,45 @@ pub fn request_attribute_pk(
     sak: &PyBdabeSecretAuthorityKey,
     attribute: String
 ) -> PyResult<PyBdabePublicAttributeKey> {
-    let pak: PyBdabePublicAttributeKey = match bdabe_request_attribute_pk(&pk.pj, &sak.sak, &attribute) {
+    let pak: PyBdabePublicAttributeKey = match bdabe_request_attribute_pk(&pk.pk, &sak.sak, &attribute) {
         Ok(pak) => PyBdabePublicAttributeKey{ pak },
         Err(e) => return Err(PyErr::new::<PyValueError, _>(format!("{}", e))),
     };
     Ok(pak)
 }
 
+pub fn encrypt(
+    pk: &PyBdabePublicKey,
+    attr_pak: &Vec<PyBdabePublicAttributeKey>,
+    policy: String,
+    plaintext: String,
+) -> PyResult<PyBdabeCiphertext> {
+    let plaintext = plaintext.into_bytes();
+    let ct: PyBdabeCiphertext = match bdabe_encrypt(&pk.pk, &attr_pak, &policy, &plaintext, PolicyLanguage::HumanPolicy) {
+        Ok(ct) => PyBdabeCiphertext{ ct },
+        Err(e) => return Err(PyErr::new::<PyValueError, _>(format!("{}", e))),
+    };
+    Ok(ct)
+}
+
+pub fn decrypt(
+    pk: &PyBdabePublicKey,
+    uk: &PyBdabeUserKey,
+    ct: &PyBdabeCiphertext,
+) -> PyResult<Vec<u8>> {
+    let plaintext: Vec<u8> = match bdabe_decrypt(&pk.pk, &uk.uk, &ct.ct) {
+        Ok(plaintext) => plaitnext,
+        Err(e) => return Err(PyErr::new::<PyValueError, _>(format!("{}", e))),
+    };
+    Ok(plaintext)
+}
+
+
 
 
 #[pymodule]
 pub fn bdabe(_py: Python, m: &PyModule) -> PyResult<()> {
-    crate::add_functions!(m;setup, decrypt, encrypt, keygen, authgen, request_attribute_pk, request_attribute_sk);
-    crate::add_types!(m;BdabePublicKey, PyBdabeMasterKey, PyBdabeCiphertext PyPolicyLanguage);
+    crate::add_functions!(m;setup, decrypt, encrypt, authgen, authgen, request_attribute_pk);
+    crate::add_types!(m;BdabePublicKey, PyBdabeMasterKey, PyBdabeCiphertext PyPolicyLanguage, PyBdabePublicKey, PyBdabePublicUserKey, PyBdabeSecretAuthorityKey, PyBdabePublicAttributeKey);
     Ok(())
 }

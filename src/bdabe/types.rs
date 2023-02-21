@@ -55,5 +55,11 @@ pub struct PyBdabePublicUserKey {
     pub(crate) puk: BdabePublicUserKey,
 }
 
+#[pyclass]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct PyBdabeUserKey {
+    pub(crate) uk: BdabeUserKey,
+}
 
-serializable!(PyBdabePublicKey, PyBdabeMasterKey, PyBdabeCiphertext, PyBdabePublicAttributeKey, PyBdabeSecretAuthorityKey, PyBdabePublicUserKey);
+
+serializable!(PyBdabePublicKey, PyBdabeMasterKey, PyBdabeCiphertext, PyBdabePublicAttributeKey, PyBdabeSecretAuthorityKey, PyBdabePublicUserKey, PyBdabeUserKey);
