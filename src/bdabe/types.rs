@@ -40,7 +40,7 @@ pub struct PyBdabeCiphertext {
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct PyBdabePublicAttributeKey {
-    pub(crate) pak: BdabePublicAttributeKey,
+    pub(crate) pak: Vec<BdabePublicAttributeKey>,
 }
 
 #[pyclass]
