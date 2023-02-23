@@ -1,4 +1,7 @@
-
+//! BDABE Encryption and Decryption interface for python
+//! ---
+//! This is a wrapper
+//! Implented in [the aw11 source](rabe::schemes::bdabe)
 
 
 use pyo3::exceptions::PyValueError;
@@ -7,6 +10,7 @@ use rabe::schemes::bdabe::{
     setup as bdabe_setup, authgen as bdabe_authgen,
     request_attribute_pk as bdabe_request_attribute_pk,
     encrypt as bdabe_encrypt, decrypt as bdabe_decrypt,
+    keygen as bdabe_keygen,
 };
 
 use rabe::utils::policy::pest::PolicyLanguage;
@@ -14,6 +18,7 @@ use rabe::utils::policy::pest::PolicyLanguage;
 pub mod types;
 use types::*;
 
+/// Some doc comment
 #[pyfunction]
 pub fn setup() -> PyResult<(PyBdabePublicKey, PyBdabeMasterKey)> {
     let (pk, mk) = bdabe_setup();
@@ -22,19 +27,31 @@ pub fn setup() -> PyResult<(PyBdabePublicKey, PyBdabeMasterKey)> {
     Ok((pk, mk))
 }
 
+/// Some doc comment
 #[pyfunction]
 pub fn authgen(
     pk: &PyBdabePublicKey,
     mk: &PyBdabeMasterKey,
     name: String
 ) -> PyResult<PyBdabeSecretAuthorityKey> {
-    let sak: PyBdabeSecretAuthorityKey = match bdabe_authgen(&pk.pk, &mk.mk, &name) {
-        Ok(sak) => PyBdabeSecretAuthorityKey{ sak },
-        Err(e) => return Err(PyErr::new::<PyValueError, _>(format!("{}", e))),
-    };
+    let ag = bdabe_authgen(&pk.pk, &mk.mk, &name);
+    let sak = PyBdabeSecretAuthorityKey{ sak: ag };
     Ok(sak)
 }
 
+/// Some doc comment
+#[pyfunction]
+pub fn keygen(
+    pk: &PyBdabePublicKey,
+    sak: &PyBdabeSecretAuthorityKey,
+    name: String
+) -> PyResult<PyBdabeUserKey> {
+    let temp = bdabe_keygen(&pk.pk, &sak.sak, &name);
+    let uk = PyBdabeUserKey{uk: temp};
+    Ok(uk)
+}
+
+/// Some doc comment
 #[pyfunction]
 pub fn request_attribute_pk(
     pk: &PyBdabePublicKey,
@@ -48,6 +65,7 @@ pub fn request_attribute_pk(
     Ok(pak)
 }
 
+/// Some doc comment
 #[pyfunction]
 pub fn encrypt(
     pk: &PyBdabePublicKey,
@@ -63,6 +81,7 @@ pub fn encrypt(
     Ok(ct)
 }
 
+/// Some doc comment
 #[pyfunction]
 pub fn decrypt(
     pk: &PyBdabePublicKey,
@@ -78,10 +97,10 @@ pub fn decrypt(
 
 
 
-
+/// Some doc comment
 #[pymodule]
 pub fn bdabe(_py: Python, m: &PyModule) -> PyResult<()> {
-    crate::add_functions!(m;setup,authgen,request_attribute_pk,encrypt,decrypt);
+    crate::add_functions!(m;setup,authgen,keygen,request_attribute_pk,encrypt,decrypt);
     crate::add_types!(m;PyBdabePublicKey, PyBdabeMasterKey, PyBdabeCiphertext, PyBdabePublicKey, PyBdabePublicUserKey, PyBdabeSecretAuthorityKey, PyBdabePublicAttributeKey);
     Ok(())
 }
