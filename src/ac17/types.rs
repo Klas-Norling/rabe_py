@@ -48,7 +48,7 @@ pub struct PyAc17KpSecretKey {
 /// Wrapper for [Policy Language](PolicyLanguage)
 #[pyclass]
 pub struct PyPolicyLanguage {
-    pub(crate) lang: PolicyLanguage,
+    pub(crate) _lang: PolicyLanguage,
 }
 
 /// Wrapper for [Ac17 Cp Secret Key](Ac17CpSecretKey)

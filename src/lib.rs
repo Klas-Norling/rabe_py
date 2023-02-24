@@ -3,7 +3,7 @@
 #![deny(non_snake_case)]
 #![deny(non_camel_case_types)]
 #![deny(clippy::all)]
-#![allow(bare_urls)]
+#![deny(warnings)]
 
 use pyo3::{prelude::*, wrap_pymodule};
 

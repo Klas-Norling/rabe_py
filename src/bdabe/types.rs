@@ -2,17 +2,12 @@
 //! ---
 
 use rabe::schemes::bdabe::{
-    BdabePublicKey,
-    BdabeMasterKey,
-    BdabeUserKey,
-    BdabePublicUserKey,
-    BdabePublicAttributeKey,
-    BdabeSecretAuthorityKey,
-    BdabeCiphertext,
+    BdabeCiphertext, BdabeMasterKey, BdabePublicAttributeKey, BdabePublicKey, BdabePublicUserKey,
+    BdabeSecretAttributeKey, BdabeSecretAuthorityKey, BdabeUserKey,
 };
 
-use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
+use pyo3::prelude::*;
 
 use crate::serializable;
 
@@ -64,6 +59,46 @@ pub struct PyBdabePublicUserKey {
 pub struct PyBdabeUserKey {
     pub(crate) uk: BdabeUserKey,
 }
+/// Some doc comments
+#[pyclass]
+#[derive(serde::Serialize, serde::Deserialize, Clone)]
+pub struct PyBdabeSecretAttributeKey {
+    pub(crate) sak: BdabeSecretAttributeKey,
+}
 
+// Implement
+#[pymethods]
+impl PyBdabeUserKey {
+    #[new]
+    /// asd
+    pub fn __init__(value: String) -> PyResult<Self> {
+        match serde_json::from_str(&value) {
+            Ok(value) => Ok(value),
+            Err(e) => Err(PyErr::new::<PyValueError, _>(format!("{}", e))),
+        }
+    }
+    /// asd
+    pub fn __str__(&self) -> PyResult<String> {
+        match serde_json::to_string(&self) {
+            Ok(value) => Ok(value),
+            Err(e) => Err(PyErr::new::<PyValueError, _>(format!("{}", e))),
+        }
+    }
 
-serializable!(PyBdabePublicKey, PyBdabeMasterKey, PyBdabeCiphertext, PyBdabePublicAttributeKey, PyBdabeSecretAuthorityKey, PyBdabePublicUserKey, PyBdabeUserKey);
+    /// ```python
+    /// _u_key.append(request_attribute_sk(_u_key, _a1_key, _att1))
+    /// ```
+    pub fn append(&mut self, value: PyBdabeSecretAttributeKey) {
+        self.uk._ska.push(value.sak);
+    }
+}
+
+serializable!(
+    PyBdabePublicKey,
+    PyBdabeMasterKey,
+    PyBdabeCiphertext,
+    PyBdabePublicAttributeKey,
+    PyBdabeSecretAuthorityKey,
+    PyBdabePublicUserKey,
+    PyBdabeSecretAttributeKey
+);
