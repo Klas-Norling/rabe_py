@@ -1,7 +1,14 @@
+# AC17 Scheme mapped to python from rust.
+# This file has examples of how to use this library.
 from rabe_py import bdabe
 
 
+
 def run_bdabe():
+    """
+    Implements the encryption and decryption methods in the BDABE Scheme
+    Returns a plaintext
+    """
     (pk, msk) = bdabe.setup()
     sak = bdabe.authgen(pk, msk, "aa1")
     uk = bdabe.keygen(pk, sak, "u1")

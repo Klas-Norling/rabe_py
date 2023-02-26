@@ -11,55 +11,55 @@ use pyo3::prelude::*;
 
 use crate::serializable;
 
-/// Some doc comment
+/// Wrapper for [BDABE Public Key](BdabePublicKey)
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct PyBdabePublicKey {
     pub(crate) pk: BdabePublicKey,
 }
 
-/// Some doc comment
+/// Wrapper for [BDABE Master Key](BdabeMasterKey)
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct PyBdabeMasterKey {
     pub(crate) mk: BdabeMasterKey,
 }
 
-/// Some doc comment
+/// Wrapper for [BDABE Cipher Text](BdabeCiphertext)
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct PyBdabeCiphertext {
     pub(crate) ct: BdabeCiphertext,
 }
 
-/// Some doc comment
+/// Wrapper for [BDABE Public attribute Key](BdabePublicAttributeKey)
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct PyBdabePublicAttributeKey {
     pub(crate) pak: Vec<BdabePublicAttributeKey>,
 }
 
-/// Some doc comment
+/// Wrapper for [BDABE Secret authority key](BdabeSecretAuthorityKey)
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct PyBdabeSecretAuthorityKey {
     pub(crate) sak: BdabeSecretAuthorityKey,
 }
 
-/// Some doc comment
+/// Wrapper for [BDABE Public user Key](BdabePublicUserKey)
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct PyBdabePublicUserKey {
     pub(crate) puk: BdabePublicUserKey,
 }
 
-/// Some doc comments
+/// Wrapper for [BDABE User key](BdabeUserKey)
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct PyBdabeUserKey {
     pub(crate) uk: BdabeUserKey,
 }
-/// Some doc comments
+/// Wrapper for [BDABE Secret attribute key](BdabeSecretAttributeKey)
 #[pyclass]
 #[derive(serde::Serialize, serde::Deserialize, Clone)]
 pub struct PyBdabeSecretAttributeKey {
