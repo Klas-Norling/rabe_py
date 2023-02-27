@@ -10,6 +10,7 @@ use pyo3::{prelude::*, wrap_pymodule};
 pub mod ac17;
 pub mod aw11;
 pub mod lsw;
+pub mod bdabe;
 mod macros;
 
 /// A Python module implemented in Rust.
@@ -18,6 +19,8 @@ fn rabe_py(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(aw11::aw11))?;
     m.add_wrapped(wrap_pymodule!(ac17::ac17))?;
     m.add_wrapped(wrap_pymodule!(lsw::lsw))?;
+    m.add_wrapped(wrap_pymodule!(bdabe::bdabe))?;
+
 
     Ok(())
 }
