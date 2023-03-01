@@ -1,3 +1,7 @@
+## 0.0.5
+
+Added BSW cypher.
+
 ## 0.0.4
 
 Added BDABE cypher.
