@@ -66,7 +66,7 @@ pub struct PyBdabeSecretAttributeKey {
     pub(crate) sak: BdabeSecretAttributeKey,
 }
 
-// Implement
+/// Implement
 #[pymethods]
 impl PyBdabeUserKey {
     #[new]

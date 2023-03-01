@@ -12,6 +12,7 @@ pub mod ac17;
 pub mod aw11;
 pub mod lsw;
 pub mod bdabe;
+pub mod bsw;
 mod macros;
 
 /// A Python module implemented in Rust.
@@ -21,6 +22,7 @@ fn rabe_py(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pymodule!(ac17::ac17))?;
     m.add_wrapped(wrap_pymodule!(lsw::lsw))?;
     m.add_wrapped(wrap_pymodule!(bdabe::bdabe))?;
+    m.add_wrapped(wrap_pymodule!(bsw::bsw))?;
 
 
     Ok(())
