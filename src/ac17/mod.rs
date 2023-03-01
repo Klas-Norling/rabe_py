@@ -143,6 +143,6 @@ pub fn cp_decrypt(sk: &PyAc17CpSecretKey, ct: &PyAc17CpCiphertext) -> PyResult<S
 #[pymodule]
 pub fn ac17(_py: Python, m: &PyModule) -> PyResult<()> {
     crate::add_functions!(m;setup, cp_decrypt, cp_encrypt, cp_keygen, kp_decrypt, kp_encrypt, kp_keygen);
-    crate::add_types!(m;PyAc17CpCiphertext, PyAc17CpSecretKey, PyAc17KpCiphertext, PyAc17KpSecretKey, PyAc17MasterKey, PyAc17PublicKey, PyPolicyLanguage);
+    crate::add_types!(m;PyAc17CpCiphertext, PyAc17CpSecretKey, PyAc17KpCiphertext, PyAc17KpSecretKey, PyAc17MasterKey, PyAc17PublicKey);
     Ok(())
 }

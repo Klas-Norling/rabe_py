@@ -70,14 +70,14 @@ pub struct PyBdabeSecretAttributeKey {
 #[pymethods]
 impl PyBdabeUserKey {
     #[new]
-    /// asd
+    /// Deserialize an instance from a string of JSON text
     pub fn __init__(value: String) -> PyResult<Self> {
         match serde_json::from_str(&value) {
             Ok(value) => Ok(value),
             Err(e) => Err(PyErr::new::<PyValueError, _>(format!("{}", e))),
         }
     }
-    /// asd
+    /// Serialize the given data structure as a String of json
     pub fn __str__(&self) -> PyResult<String> {
         match serde_json::to_string(&self) {
             Ok(value) => Ok(value),
@@ -91,6 +91,19 @@ impl PyBdabeUserKey {
     pub fn append(&mut self, value: PyBdabeSecretAttributeKey) {
         self.uk._ska.push(value.sak);
     }
+
+    /// Removes last element in list
+    pub fn pop(&mut self) {
+        self.uk._ska.pop();
+    }
+
+    /// Inserts value at given index
+    pub fn __setitem__(&mut self, index: usize, value: PyBdabeSecretAttributeKey) {
+        self.uk._ska.insert(index, value.sak);
+    }
+
+
+
 }
 
 serializable!(

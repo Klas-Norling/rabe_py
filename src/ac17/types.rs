@@ -6,7 +6,6 @@ use rabe::schemes::ac17::{
     Ac17CpCiphertext, Ac17CpSecretKey, Ac17KpCiphertext, Ac17KpSecretKey, Ac17MasterKey,
     Ac17PublicKey,
 };
-use rabe::utils::policy::pest::PolicyLanguage;
 
 use crate::serializable;
 
@@ -45,11 +44,7 @@ pub struct PyAc17KpSecretKey {
     pub(crate) sk: Ac17KpSecretKey,
 }
 
-/// Wrapper for [Policy Language](PolicyLanguage)
-#[pyclass]
-pub struct PyPolicyLanguage {
-    pub(crate) lang: PolicyLanguage,
-}
+
 
 /// Wrapper for [Ac17 Cp Secret Key](Ac17CpSecretKey)
 #[pyclass]
