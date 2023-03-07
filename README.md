@@ -36,6 +36,7 @@ In order to build the system write the follwing (standing in the root folder): <
 $ python -m venv .env <br />
 $ source .env/bin/activate <br />
 $ maturin develop <br />
+<br />
 To install the the package write the following while standing in the root folder: <br />
 $ pip install .
 
